@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>chatterbox</title>
+    <link rel="stylesheet" href="styles/styles.css">
+
+    <!-- dependencies -->
+    <script src="bower_components/jquery/jquery.min.js"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
+    <!-- your scripts -->
+    <script src="scripts/config.js"></script>
+    <script src="scripts/app.js"></script>
+  </head>
+  <body>
+    <div id="main">
+      <h1>chatterbox</h1>
+      <div class="spinner"><img src="images/spiffygif_46x46.gif"></div>
+    <div id="rooms">
+      Room:<select id="roomSelect"></select>
+      <br>
+      Create Room:<input type="text" name="newRoom" id="newRoom"/>
+      <input type="submit" name="submit" class="submitNewRoom"/>
+      <br>
+    </div>
+    <div id="send">
+      Input Message:<input type="text" name="message" id="message"/>
+      <input type="submit" name="submit" class="submitMessage"/>
+    </div>
+    <div id="chats"></div>
+  </div>
+  </body>
+</html>
+
+     <!--  <form class='form'>
+      <input type='text' class='input'/>
+      <input type='submit' class='send' action ='submit'>Send</input>
+      </form>
+      Your HTML goes here!
+      <span class="messages"></span>
+    </div> -->
