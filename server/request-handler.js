@@ -6,25 +6,27 @@
  * *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html. */
 
 var dataStore = [
-{
-  'username': 'testUser1',
-  'text': 'testText1',
-  'roomname': 'testRoom1'
-},
-{
-  'username': 'testUser2',
-  'text': 'testText2',
-  'roomname': 'testRoom2'
-},
-{
-  'username': 'testUser3',
-  'text': 'testText3',
-  'roomname': 'testRoom3'
-}
+// {
+//   'username': 'testUser1',
+//   'text': 'testText1',
+//   'roomname': 'testRoom1'
+// },
+// {
+//   'username': 'testUser2',
+//   'text': 'testText2',
+//   'roomname': 'testRoom2'
+// },
+// {
+//   'username': 'testUser3',
+//   'text': 'testText3',
+//   'roomname': 'testRoom3'
+// }
 ];
 
 module.exports.handleRequest = function(request, response) {
-  var responseBody = "It's working!!!";
+  var responseBody = undefined;
+  var statusCode = 200;
+  var handler = {};
 
   /* the 'request' argument comes from nodes http module. It includes info about the
   request - such as what URL the browser is requesting. */
@@ -35,24 +37,19 @@ module.exports.handleRequest = function(request, response) {
   // console.log("Serving request type " + request.method + " for url " + request.url);
 
   //sort and handle incoming requests
-  var handler = {};
   handler.GET = function(request, response){
-    // console.log(">>>>> GET request detected <<<<<");
-
+    statusCode = 200;
     responseBody = JSON.stringify({
       results: dataStore
     });
   };
   handler.POST = function(request, response) {
-    console.log(">>>>> POST request detected <<<<<");
+    statusCode = 201;
     request.on('data', function(data){
-      var jsonData = JSON.parse(data.toString());
+      var jsonData = JSON.parse(data);
       dataStore.push(jsonData);
     });
   };
-
-
-  var statusCode = 200;
 
   /* Without this line, this server wouldn't work. See the note
    * below about CORS. */
