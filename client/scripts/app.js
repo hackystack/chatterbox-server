@@ -1,4 +1,7 @@
-var App = {};
+var App = {
+  // 'https://api.parse.com/1/classes/chatterbox?order=-createdAt',
+  server: 'http://localhost:3000'
+};
 
 App.roomList = {};
 
@@ -40,7 +43,7 @@ $(document).ready(function(){
 //retrieve
 App.retrieve = function (){
   $.ajax({
-    url: 'https://api.parse.com/1/classes/chatterbox?order=-createdAt',
+    url: App.server,
     type: 'GET',
     // data: {order: createdAt},
     contentType: 'application/json',
@@ -64,7 +67,7 @@ App.post = function(input){
   };
 
   $.ajax({
-    url: 'https://api.parse.com/1/classes/chatterbox?order=-createdAt',
+    url: App.server,
     type: 'POST',
     data: JSON.stringify(message),
     contentType: 'application/json',
@@ -83,7 +86,8 @@ App.forEachChat = function(data){
   for (var i = 0; i < data.results.length; i++){
     var chatObject = data.results[i];
     App.getRoomNames(data.results[i]['roomname']);
-    if(chatObject['roomname'] === App.roomName){
+    if(App.roomName === undefined ||
+       chatObject['roomname'] === App.roomName){
       App.display(chatObject);
     }
   }

@@ -6,10 +6,26 @@
  * *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html. */
 
 var results = [];
+results.push({
+  username: 'testName1',
+  text: 'testText1',
+  roomname: 'testRoom1',
+});
+results.push({
+  username: 'testName2',
+  text: 'testText2',
+  roomname: 'testRoom2',
+});
+results.push({
+  username: 'testName3',
+  text: 'testText3',
+  roomname: 'testRoom3',
+});
 
 exports.handleRequest = function(request, response) {
   var handler = {};
   var statusCode = 200;
+  var data = null;
 
   // parse and process the requests
   handler.POST = function(request, response){
@@ -22,9 +38,14 @@ exports.handleRequest = function(request, response) {
   handler.GET = function(request, response){
     if (request.url.match(/classes/)) {
       statusCode = 200;
+      data = {'results': results };
     } else {
       statusCode = 404;
     }
+  };
+
+  handler.OPTIONS = function(request, response) {
+    statusCode= 200;
   };
 
   /* the 'request' argument comes from nodes http module. It includes info about the
@@ -51,7 +72,7 @@ exports.handleRequest = function(request, response) {
    * anything back to the client until you do. The string you pass to
    * response.end() will be the body of the response - i.e. what shows
    * up in the browser.*/
-  response.end(JSON.stringify({'results': results }));
+  response.end(JSON.stringify(data));
 };
 
 /* These headers will allow Cross-Origin Resource Sharing (CORS).
