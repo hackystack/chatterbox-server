@@ -5,7 +5,28 @@
  * this file and include it in basic-server.js so that it actually works.
  * *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html. */
 
-var handleRequest = function(request, response) {
+var results = [];
+
+exports.handleRequest = function(request, response) {
+  var handler = {};
+  var statusCode = 200;
+
+  // parse and process the requests
+  handler.POST = function(request, response){
+    statusCode = 201;
+    request.on('data', function(data){
+      results.push(JSON.parse(data));
+    });
+  };
+
+  handler.GET = function(request, response){
+    if (request.url.match(/classes/)) {
+      statusCode = 200;
+    } else {
+      statusCode = 404;
+    }
+  };
+
   /* the 'request' argument comes from nodes http module. It includes info about the
   request - such as what URL the browser is requesting. */
 
@@ -14,13 +35,14 @@ var handleRequest = function(request, response) {
 
   console.log("Serving request type " + request.method + " for url " + request.url);
 
-  var statusCode = 200;
-
+  if(handler.hasOwnProperty(request.method)){
+    handler[request.method](request,response);
+  }
   /* Without this line, this server wouldn't work. See the note
    * below about CORS. */
   var headers = defaultCorsHeaders;
 
-  headers['Content-Type'] = "text/plain";
+  headers['Content-Type'] = "application/JSON";
 
   /* .writeHead() tells our server what HTTP status code to send back */
   response.writeHead(statusCode, headers);
@@ -29,7 +51,7 @@ var handleRequest = function(request, response) {
    * anything back to the client until you do. The string you pass to
    * response.end() will be the body of the response - i.e. what shows
    * up in the browser.*/
-  response.end("Hello, World!");
+  response.end(JSON.stringify({'results': results }));
 };
 
 /* These headers will allow Cross-Origin Resource Sharing (CORS).
