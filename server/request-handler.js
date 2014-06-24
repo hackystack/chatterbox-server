@@ -6,21 +6,21 @@
  * *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html. */
 
 var dataStore = [
-// {
-//   'username': 'testUser1',
-//   'text': 'testText1',
-//   'roomname': 'testRoom1'
-// },
-// {
-//   'username': 'testUser2',
-//   'text': 'testText2',
-//   'roomname': 'testRoom2'
-// },
-// {
-//   'username': 'testUser3',
-//   'text': 'testText3',
-//   'roomname': 'testRoom3'
-// }
+  {
+    'username': 'testUser1',
+    'text': 'testText1',
+    'roomname': 'testRoom1'
+  },
+  {
+    'username': 'testUser2',
+    'text': 'testText2',
+    'roomname': 'testRoom2'
+  },
+  {
+    'username': 'testUser3',
+    'text': 'testText3',
+    'roomname': 'testRoom3'
+  }
 ];
 
 module.exports.handleRequest = function(request, response) {
