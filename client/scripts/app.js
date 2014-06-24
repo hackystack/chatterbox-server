@@ -1,7 +1,10 @@
-var App = {};
+var App = {
+  // parseServer = ""
+  // url: 'http://127.0.0.1:3000/1/classes/chatterbox?order=-createdAt',
+  server: "http://127.0.0.1:3000"
+};
 
 App.roomList = {};
-
 App.friends = {};
 
 //Initialize, retrieve, refreshes messages, etc... every second
@@ -39,14 +42,16 @@ $(document).ready(function(){
 
 //retrieve
 App.retrieve = function (){
+    // TODO reinsert full url
+    // url: 'http://127.0.0.1:3000/1/classes/chatterbox?order=-createdAt',
   $.ajax({
-    url: 'https://api.parse.com/1/classes/chatterbox?order=-createdAt',
+    url: App.server,
     type: 'GET',
     // data: {order: createdAt},
     contentType: 'application/json',
     success: function(data){
-        App.forEachChat(data);
-      },
+      App.forEachChat(data);
+    },
     error: function(){
       console.log('ERROR');
     }
@@ -64,7 +69,7 @@ App.post = function(input){
   };
 
   $.ajax({
-    url: 'https://api.parse.com/1/classes/chatterbox?order=-createdAt',
+    url: App.server,
     type: 'POST',
     data: JSON.stringify(message),
     contentType: 'application/json',
@@ -83,7 +88,8 @@ App.forEachChat = function(data){
   for (var i = 0; i < data.results.length; i++){
     var chatObject = data.results[i];
     App.getRoomNames(data.results[i]['roomname']);
-    if(chatObject['roomname'] === App.roomName){
+    if(App.roomName === undefined ||
+       chatObject['roomname'] === App.roomName){
       App.display(chatObject);
     }
   }
@@ -128,7 +134,6 @@ App.display = function(chatObject){
     $('#chats').append(post);
     $('.addFriend').on('click', function(){
       App.friends[$(this).val()] = $(this).val();
-      // console.log(App.friends);
     });
   }
 
