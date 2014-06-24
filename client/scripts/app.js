@@ -1,7 +1,7 @@
 var App = {
   // parseServer = ""
   // url: 'http://127.0.0.1:3000/1/classes/chatterbox?order=-createdAt',
-  server: "http://127.0.0.1:3000"
+  server: "http://moderatelygoodchatapp.azurewebsites.net/"
 };
 
 App.roomList = {};
