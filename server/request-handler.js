@@ -5,18 +5,18 @@
  * this file and include it in basic-server.js so that it actually works.
  * *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html. */
 
-var results = [];
-results.push({
+var array = [];
+array.push({
   username: 'testName1',
   text: 'testText1',
   roomname: 'testRoom1',
 });
-results.push({
+array.push({
   username: 'testName2',
   text: 'testText2',
   roomname: 'testRoom2',
 });
-results.push({
+array.push({
   username: 'testName3',
   text: 'testText3',
   roomname: 'testRoom3',
@@ -25,20 +25,21 @@ results.push({
 exports.handleRequest = function(request, response) {
   var handler = {};
   var statusCode = 200;
-  var data = null;
+  var data = {results: null};
 
   // parse and process the requests
   handler.POST = function(request, response){
     statusCode = 201;
     request.on('data', function(data){
-      results.push(JSON.parse(data));
+      array.push(JSON.parse(data));
     });
   };
 
   handler.GET = function(request, response){
     if (request.url.match(/classes/)) {
       statusCode = 200;
-      data = {'results': results };
+      // data = {'results': array };
+      data = {results: array};
     } else {
       statusCode = 404;
     }
@@ -63,7 +64,7 @@ exports.handleRequest = function(request, response) {
    * below about CORS. */
   var headers = defaultCorsHeaders;
 
-  headers['Content-Type'] = "application/JSON";
+  headers['Content-Type'] = "application/json";
 
   /* .writeHead() tells our server what HTTP status code to send back */
   response.writeHead(statusCode, headers);
@@ -72,6 +73,7 @@ exports.handleRequest = function(request, response) {
    * anything back to the client until you do. The string you pass to
    * response.end() will be the body of the response - i.e. what shows
    * up in the browser.*/
+
   response.end(JSON.stringify(data));
 };
 

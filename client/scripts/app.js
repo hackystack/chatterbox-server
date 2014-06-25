@@ -1,6 +1,6 @@
 var App = {
   // 'https://api.parse.com/1/classes/chatterbox?order=-createdAt',
-  server: 'http://localhost:3000'
+  server: 'http://localhost:3000/classes/messages'
 };
 
 App.roomList = {};
@@ -36,8 +36,6 @@ $(document).ready(function(){
     App.post('');
   });
 
-
-
 });
 
 //retrieve
@@ -48,8 +46,8 @@ App.retrieve = function (){
     // data: {order: createdAt},
     contentType: 'application/json',
     success: function(data){
-        App.forEachChat(data);
-      },
+      App.forEachChat(data);
+    },
     error: function(){
       console.log('ERROR');
     }
