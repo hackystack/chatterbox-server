@@ -1,6 +1,6 @@
 var App = {
   // 'https://api.parse.com/1/classes/chatterbox?order=-createdAt',
-  server: 'http://localhost:3000/classes/messages'
+  server: 'http://moderatelygoodchatapp.azurewebsites.net/classes/messages'
 };
 
 App.roomList = {};
